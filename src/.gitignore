@@ -1,3 +1,4 @@
-.gradle/
-.idea/
-allure-results/
+/.gradle/
+/.idea/
+/allure-results/
+/out/
