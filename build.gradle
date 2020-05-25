@@ -48,9 +48,9 @@ tasks.withType(Test) {
 }
 
 test {
-//    useTestNG() {
-//        suites 'src/main/resources/testng.xml'
-//    }
+    useTestNG() {
+        suites 'src/main/resources/testng.xml'
+    }
   //  scanForTestClasses = false
 //    useTestNG()
 //    scanForTestClasses = false
