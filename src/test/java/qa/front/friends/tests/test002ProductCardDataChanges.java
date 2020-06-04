@@ -6,6 +6,8 @@ import qa.front.friends.logic.driver.DesktopDriver;
 import qa.front.friends.logic.pages.AuthPage;
 import qa.front.friends.logic.pages.MainPageNewOrder;
 import qa.front.friends.logic.pages.ProductCardPage;
+
+
 public class test002ProductCardDataChanges implements DesktopDriver {
 
     private AuthPage authPage;
@@ -46,6 +48,8 @@ public class test002ProductCardDataChanges implements DesktopDriver {
                 .checkCartBlockTotalCost("131 990 ₽", "Apple iPhone 11 Pro Max", "512 ГБ")
                 .checkCartBlockLeasingSum("142 980 ₽")
                 .checkCartBlockResidualSum("52 242 ₽")
-                .checkCartBlockMonthPay("7 562 ₽");
+                .checkCartBlockMonthPay("7 562 ₽")
+                .clickBackToCatalogButton()
+                .checkUrlContains("https://agent-front-ag-test.forward.lc/main/new-order");
     }
 }

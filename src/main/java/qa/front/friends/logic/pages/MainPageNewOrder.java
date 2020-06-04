@@ -1,11 +1,7 @@
 package qa.front.friends.logic.pages;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
-import org.openqa.selenium.By;
 
 import java.util.NoSuchElementException;
 
@@ -15,6 +11,7 @@ import static com.codeborne.selenide.Selenide.$x;
 
 
 public class MainPageNewOrder {
+
 
     private SelenideElement elOrdersButton = $x("//*[@data-test='top-menu' and text() = 'Заявки']");
     private SelenideElement elTariffsButton = $x("//*[@data-test='top-menu' and text() = 'Тарифы']");

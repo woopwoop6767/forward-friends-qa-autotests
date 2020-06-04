@@ -1,14 +1,13 @@
 package qa.front.friends.logic.pages;
 
-import com.codeborne.selenide.CollectionCondition;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.ElementsCollection;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import qa.front.friends.logic.WebElementsCollectionHandler;
 
 import static com.codeborne.selenide.Selenide.$$x;
 import static com.codeborne.selenide.Selenide.$x;
+import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 
 public class ProductCardPage implements WebElementsCollectionHandler {
 
@@ -85,5 +84,19 @@ public class ProductCardPage implements WebElementsCollectionHandler {
                 .shouldBe(Condition.visible);
         return this;
     }
+
+    @Step("I click BackToCatalogButton")
+    public ProductCardPage clickBackToCatalogButton() {
+        elBackToCatalogButton.click();
+        return this;
+    }
+
+    @Step("I check URL contains {url}")
+    public ProductCardPage checkUrlContains(String url) {
+        new WebDriverWait(WebDriverRunner.getWebDriver(), 10).until(urlContains(url));
+        return this;
+    }
+
+
 
 }
