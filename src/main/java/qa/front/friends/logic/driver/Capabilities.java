@@ -10,7 +10,7 @@ import java.util.logging.Level;
 
 public interface Capabilities {
     default void initLocalCapabilities() {
-        Configuration.timeout = 4000;
+        Configuration.timeout = 10000;
         Configuration.startMaximized = true;
         Configuration.driverManagerEnabled = true;
     }

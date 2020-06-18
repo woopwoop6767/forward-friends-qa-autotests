@@ -2,6 +2,8 @@ package qa.front.friends.logic.pages;
 
 import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.WebStorage;
 
 import java.util.NoSuchElementException;
 
@@ -10,7 +12,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$x;
 
 
-public class MainPageNewOrder {
+public class MainPageNewOrder extends GeneralMethods {
 
 
     private SelenideElement elOrdersButton = $x("//*[@data-test='top-menu' and text() = 'Заявки']");

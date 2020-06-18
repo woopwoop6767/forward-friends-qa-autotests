@@ -2,14 +2,16 @@ package qa.front.friends.logic.pages;
 
 import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.WebStorage;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import qa.front.friends.logic.WebElementsCollectionHandler;
+import qa.front.friends.logic.api.SelfieUploader;
 
-import static com.codeborne.selenide.Selenide.$$x;
-import static com.codeborne.selenide.Selenide.$x;
+import static com.codeborne.selenide.Selenide.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 
-public class ProductCardPage implements WebElementsCollectionHandler {
+public class ProductCardPage implements WebElementsCollectionHandler, SelfieUploader {
 
 
     private SelenideElement elBackToCatalogButton = $x("//app-button[@title='Назад к списку']//button[1]");
@@ -97,6 +99,10 @@ public class ProductCardPage implements WebElementsCollectionHandler {
         return this;
     }
 
-
+    @Step("I click buy button")
+    public ProductCardPage clickBuyButton() {
+        elBuyButton.click();
+        return this;
+    }
 
 }
