@@ -33,17 +33,15 @@ public class MainPageNewOrder extends GeneralMethods {
 
     @Step("I check search result")
     public MainPageNewOrder checkSearchResult(String itemName) {
-        elsProductCardsArray.shouldBe(CollectionCondition.size(1)).stream()
-                .filter(var -> var.getText().contains(itemName))
-                .findFirst().orElseThrow(NoSuchElementException::new);
+        elsProductCardsArray.find(Condition.text(itemName))
+                .shouldBe(Condition.visible);
         return this;
     }
 
     @Step("I go to product card page")
     public MainPageNewOrder goToProductCardPage(String itemName) {
-        elsProductCardsArray.shouldBe(CollectionCondition.sizeGreaterThan(0)).stream()
-                .filter(var -> var.shouldBe(Condition.visible).getText().contains(itemName))
-                .findFirst().orElseThrow(NoSuchElementException::new).click();
+        elsProductCardsArray.find(Condition.text(itemName))
+                .click();
         return this;
     }
 

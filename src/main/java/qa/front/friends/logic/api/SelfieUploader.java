@@ -14,7 +14,7 @@ public interface SelfieUploader extends Specification {
     default String getApplicationID(String fwdBasket) {
         return RestAssured
                 .given()
-                .spec(getRequestSpecification("https://agent-front-ag-test.forward.lc/"))
+                .spec(getRequestSpecification())
                 .basePath("leasing-basket/v1/basket-online/" + fwdBasket)
                 .get()
                 .then()
@@ -28,7 +28,7 @@ public interface SelfieUploader extends Specification {
         String applicationID = getApplicationID(fwdBasket);
         RestAssured
                 .given()
-                .spec(getRequestSpecification("https://agent-front-ag-test.forward.lc/"))
+                .spec(getRequestSpecification())
                 .header("authorization", "Bearer " + authToken)
                 .header("device-type", "WEB")
                 .basePath("application/v2/leasing-application/upload/" + applicationID + "/photo")
@@ -47,12 +47,11 @@ public interface SelfieUploader extends Specification {
         for (int i = 0; i < Configuration.timeout / 1000 + 10; i++) {
             String status = RestAssured
                     .given()
-                    .spec(getRequestSpecification("https://agent-front-ag-test.forward.lc/"))
+                    .spec(getRequestSpecification())
                     .header("device-type", "WEB")
                     .basePath("application/v1/leasing-application/" + applicationID + "/check-passport-selfie")
                     .get()
                     .then()
-//                    .log().all()
                     .statusCode(200)
                     .extract().body().jsonPath().getString("resultData.status");
             if (status.equals("CHECKED_SUCCESS")) return;
@@ -69,7 +68,7 @@ public interface SelfieUploader extends Specification {
         String applicationID = getApplicationID(fwdBasket);
         RestAssured
                 .given()
-                .spec(getRequestSpecification("https://agent-front-ag-test.forward.lc/"))
+                .spec(getRequestSpecification())
                 .header("authorization", "Bearer " + authToken)
                 .header("device-type", "WEB")
                 .basePath("application/v2/leasing-application/upload/" + applicationID + "/photo")

@@ -18,30 +18,33 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
     private SelenideElement elBuyButton = $x("//app-button[@title='Оформить']//button[1]");
     private ElementsCollection elsVolumeRadioButtons = $$x("//*[@data-test='volume-select']//*[@style='display: block;']//*[@data-test='radio-point']");
     private ElementsCollection elsCoverColorRadioButtons = $$x("//*[@data-test='color-select']//*[@data-test='radio-point']");
-    private ElementsCollection elsCartBlockItemInfo =$$x("//*[@style='display: block;']//*[@data-test='cart-block']//*[@class='basket-name']");
+    private ElementsCollection elsCartBlockItemInfo = $$x("//*[@style='display: block;']//*[@data-test='cart-block']//*[@class='basket-name']");
 
 
     @Step("I click {itemVolume} radio button")
     public ProductCardPage clickVolumeRadioButton(String itemVolume) {
-        getFirstMatchElement(elsVolumeRadioButtons, itemVolume).click();
+        elsVolumeRadioButtons.find(Condition.text(itemVolume))
+                .click();
         return this;
     }
 
     @Step("I click {itemColor} radio button")
     public ProductCardPage clickCoverColorRadioButton(String itemColor) {
-        getFirstMatchElement(elsCoverColorRadioButtons, itemColor).click();
+        elsCoverColorRadioButtons.find(Condition.text(itemColor))
+                .click();
         return this;
     }
 
     @Step("I check {itemName} and {itemVolume} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockItemInfo(String itemName, String itemVolume) {
-        getFirstMatchElement(elsCartBlockItemInfo, itemName + " " + itemVolume).shouldBe(Condition.visible);
+        elsCartBlockItemInfo.find(Condition.text(itemName + " " + itemVolume))
+                .shouldBe(Condition.visible);
         return this;
     }
 
     @Step("I check {itemColor} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockColor(String itemColor) {
-        getFirstMatchElement(elsCartBlockItemInfo, "Цвет")
+        elsCartBlockItemInfo.find(Condition.text("Цвет"))
                 .$x(".//following-sibling::*[contains(text(),'" + itemColor + "')]")
                 .shouldBe(Condition.visible);
         return this;
@@ -49,7 +52,7 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
 
     @Step("I check {totalCost} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockTotalCost(String totalCost, String itemName, String itemVolume) {
-        getFirstMatchElement(elsCartBlockItemInfo, itemName + " " + itemVolume)
+        elsCartBlockItemInfo.find(Condition.text(itemName + " " + itemVolume))
                 .$x(".//following-sibling::*[contains(text(),'" + totalCost + "')]")
                 .shouldBe(Condition.visible);
         return this;
@@ -57,7 +60,7 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
 
     @Step("I check {leasingSum} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockLeasingSum(String leasingSum) {
-        getFirstMatchElement(elsCartBlockItemInfo, "Общая сумма договора")
+        elsCartBlockItemInfo.find(Condition.text("Общая сумма договора"))
                 .$x(".//following-sibling::*[contains(text(),'" + leasingSum + "')]")
                 .shouldBe(Condition.visible);
         return this;
@@ -65,7 +68,7 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
 
     @Step("I check {residualSum} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockResidualSum(String residualSum) {
-        getFirstMatchElement(elsCartBlockItemInfo, "Остаточная стоимость")
+        elsCartBlockItemInfo.find(Condition.text("Остаточная стоимость"))
                 .$x(".//following-sibling::*[contains(text(),'" + residualSum + "')]")
                 .shouldBe(Condition.visible);
         return this;
@@ -73,7 +76,7 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
 
     @Step("I check {monthTerm} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockMonthTerm(String monthTerm) {
-        getFirstMatchElement(elsCartBlockItemInfo, "Количество платежей")
+        elsCartBlockItemInfo.find(Condition.text("Количество платежей"))
                 .$x(".//following-sibling::*[contains(text(),'" + monthTerm + "')]")
                 .shouldBe(Condition.visible);
         return this;
@@ -81,7 +84,7 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
 
     @Step("I check {monthPay} is displayed correctly in cart block")
     public ProductCardPage checkCartBlockMonthPay(String monthPay) {
-        getFirstMatchElement(elsCartBlockItemInfo, "Сумма к оплате")
+        elsCartBlockItemInfo.find(Condition.text("Сумма к оплате"))
                 .$x(".//following-sibling::*[contains(text(),'" + monthPay + "')]")
                 .shouldBe(Condition.visible);
         return this;

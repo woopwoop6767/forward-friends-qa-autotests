@@ -160,7 +160,7 @@ public class OrderPage extends GeneralMethods implements SelfieUploader {
 
     @Step("I wait until agent data is successfully checked")
     public OrderPage waitUntilDataCheckIsOver() {
-        elAgentAgreementCheckbox.waitUntil(Condition.visible, 60000);
+        elAgentAgreementCheckbox.waitUntil(Condition.visible, 90000);
         return this;
     }
 

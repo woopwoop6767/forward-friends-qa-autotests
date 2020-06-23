@@ -11,28 +11,18 @@ import qa.front.friends.logic.GetEnv;
 public interface Specification extends GetEnv {
 
 
-    default RequestSpecification getRequestSpecification(String url, String path) {
+    default RequestSpecification getRequestSpecification() {
         return new RequestSpecBuilder()
                 .addFilter(new AllureRestAssured())
                 .setContentType(ContentType.JSON)
-                .setBaseUri(url)
-                .setBasePath(path)
+                .setBaseUri("https://agent-front-ag-test.forward.lc/")
                 .build()
                 ;
     }
 
-    default RequestSpecification getRequestSpecification(String url) {
-        return new RequestSpecBuilder()
-                .addFilter(new AllureRestAssured())
-                .setContentType(ContentType.JSON)
-                .setBaseUri(url)
-                .build()
-                ;
-    }
-
-    default RequestSpecification getRequestSpecificationWhp(String path) {
-        return getRequestSpecification(getPropFromFile("baseUriDev"), path);
-    }
+//    default RequestSpecification getRequestSpecificationWhp(String path) {
+//        return getRequestSpecification(getPropFromFile("baseUriDev"), path);
+//    }
 
     default ResponseSpecification getResponseSpecification() {
         return new ResponseSpecBuilder()
