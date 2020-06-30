@@ -12,7 +12,7 @@ import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$x;
 
 
-public class MainPageNewOrder extends GeneralMethods {
+public class MainPageNewOrder {
 
 
     private SelenideElement elOrdersButton = $x("//*[@data-test='top-menu' and text() = 'Заявки']");

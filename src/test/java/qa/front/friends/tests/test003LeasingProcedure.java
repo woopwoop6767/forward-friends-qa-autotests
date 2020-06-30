@@ -10,6 +10,9 @@ import qa.front.friends.logic.api.SelfieUploader;
 import qa.front.friends.logic.driver.DesktopDriver;
 import qa.front.friends.logic.pages.*;
 
+import static com.codeborne.selenide.Selenide.*;
+
+
 
 public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, GenerateText {
 
@@ -18,7 +21,6 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
     private MainPageNewOrder mainPageNewOrder;
     private ProductCardPage productCardPage;
     private OrderPage orderPage;
-    private GeneralMethods generalMethods;
     private LocalStorage localStorage;
 
     @BeforeMethod
@@ -28,7 +30,6 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
         mainPageNewOrder = new MainPageNewOrder();
         productCardPage = new ProductCardPage();
         orderPage = new OrderPage();
-        generalMethods = new GeneralMethods();
         localStorage = ((WebStorage) WebDriverRunner.getWebDriver()).getLocalStorage();
     }
 
@@ -48,12 +49,11 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .enterMobilePhone(mobilePhone)
                 .enterEmail("123@123.com")
                 .clickSendApproveToClient()
-                .checkMessageForClient();
-
-        generalMethods
+                .checkMessageForClient()
                 .openNewTabInBrowserWithUrl("https://agent-front-ag-test.forward.lc/order/ru/mobile/new/" +
-                        getApplicationID(localStorage.getItem("fwd_basketId")))
-                .switchToTab(1);
+                        getApplicationID(localStorage.getItem("fwd_basketId")));
+
+        switchTo().window(1);
 
         orderPage
                 .clickClientAgreementCheckbox()
@@ -62,17 +62,18 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .clickClientAcceptLeasing()
                 .checkMessageLeasingСonfirmation();
 
-        generalMethods
-                .closeTab()
-                .switchToTab(0);
+        closeWindow();
+        switchTo().window(0);
 
         orderPage
                 .clickContinueOrder()
                 .uploadPassport()
                 .uploadSelfie()
                 .enterLocationData("г Москва, Планетная улица, д 2")
+                .selectLocationDataFromList("г Москва, Планетная улица, д 2")
                 .enterRegistrationFlat("1")
-                .clickRowInEmploymentTypeSelector("Наемный работник")
+                .clickEmploymentTypeSelector()
+                .clickValueInEmploymentTypeSelector("Наемный работник")
                 .enterMonthlySalary("100000")
                 .clickSendAgentData()
                 .waitUntilDataCheckIsOver()

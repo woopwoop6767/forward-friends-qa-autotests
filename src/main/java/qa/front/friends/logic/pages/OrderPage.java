@@ -1,6 +1,7 @@
 package qa.front.friends.logic.pages;
 
 import com.codeborne.selenide.Condition;
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
@@ -10,7 +11,7 @@ import qa.front.friends.logic.api.SelfieUploader;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class OrderPage extends GeneralMethods implements SelfieUploader {
+public class OrderPage implements SelfieUploader {
 
     private SelenideElement elMobilePhoneInput = $x("//input[@name='mobilePhone']");
     private SelenideElement elEmailInput = $x("//input[@name='email']");
@@ -31,6 +32,8 @@ public class OrderPage extends GeneralMethods implements SelfieUploader {
     private SelenideElement elAgentSmsCodeInput = $x("//*[contains(text(),'Код из СМС')]//ancestor::app-form-pin-code-tiny//input[@type='tel']");
     private SelenideElement elSignLeasingButton = $x("//span[text()='подписать']//ancestor::button");
     private SelenideElement elMessageOrderSignedText = $x("//h3[text()='Договор оформлен']");
+    private ElementsCollection elsRegAddressSuggest = $$x("//input[@name='reg-add']/..//*[@class='ng-star-inserted']//span");
+    private ElementsCollection elsValuesInEmploymentTypeSelector = $$x("//span[text()='Выберите тип занятости']//ancestor:: *[@class='select open']//span");
 
 
 
@@ -55,6 +58,12 @@ public class OrderPage extends GeneralMethods implements SelfieUploader {
     @Step("I check text message for client is visible")
     public OrderPage checkMessageForClient() {
         elMessageToClientText.shouldBe(Condition.visible);
+        return this;
+    }
+
+    @Step("I open new tab in browser with URL {URL}")
+    public OrderPage openNewTabInBrowserWithUrl(String url) {
+        executeJavaScript("window.open('"+ url +"','_blank');");
         return this;
     }
 
@@ -129,7 +138,13 @@ public class OrderPage extends GeneralMethods implements SelfieUploader {
     @Step("I enter location data {locationData}")
     public OrderPage enterLocationData(String locationData) {
         elLocationInput.sendKeys(locationData);
-        $x("//span[text()='" + locationData + "']").click();
+        return this;
+    }
+
+    @Step("I click {locationData} in suggested list")
+    public OrderPage selectLocationDataFromList(String locationData) {
+        elsRegAddressSuggest.find(Condition.exactText(locationData))
+                .click();
         return this;
     }
 
@@ -139,10 +154,16 @@ public class OrderPage extends GeneralMethods implements SelfieUploader {
         return this;
     }
 
-    @Step("I click row in employment type selector {row}")
-    public OrderPage clickRowInEmploymentTypeSelector(String row) {
+    @Step("I click employment type selector")
+    public OrderPage clickEmploymentTypeSelector() {
         elEmploymentTypeSelector.click();
-        $x("//*[contains(@class,'select__items')]//span[text()='" + row + "']").click();
+        return this;
+    }
+
+    @Step("I click {value} in employment type selector")
+    public OrderPage clickValueInEmploymentTypeSelector(String value) {
+        elsValuesInEmploymentTypeSelector.find(Condition.text(value))
+                .click();
         return this;
     }
 
