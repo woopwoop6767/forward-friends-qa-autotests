@@ -11,13 +11,13 @@ public class AuthPage {
     private SelenideElement elPasswordInput = $x("//input[@data-test='login-pin-input']");
     private SelenideElement elLoginButton = $x("//div[(text()='Войти')]/ancestor::button[1]");
 
-    @Step("I enter {login}")
+    @Step("I enter login {login}")
     public AuthPage enterLogin(String login) {
         elLoginPhoneNumberInput.sendKeys(login);
         return this;
     }
 
-    @Step("I enter {password}")
+    @Step("I enter password {password}")
     public AuthPage enterPassword(String password) {
         elPasswordInput.sendKeys(password);
         return this;
