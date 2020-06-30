@@ -61,12 +61,6 @@ public class OrderPage implements SelfieUploader {
         return this;
     }
 
-    @Step("I open new tab in browser with URL {URL}")
-    public OrderPage openNewTabInBrowserWithUrl(String url) {
-        executeJavaScript("window.open('"+ url +"','_blank');");
-        return this;
-    }
-
     @Step("I click client agreement checkbox")
     public OrderPage clickClientAgreementCheckbox() {
         elClientAgreementCheckbox.click();

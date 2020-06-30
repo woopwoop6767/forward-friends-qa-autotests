@@ -49,11 +49,10 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .enterMobilePhone(mobilePhone)
                 .enterEmail("123@123.com")
                 .clickSendApproveToClient()
-                .checkMessageForClient()
-                .openNewTabInBrowserWithUrl("https://agent-front-ag-test.forward.lc/order/ru/mobile/new/" +
-                        getApplicationID(localStorage.getItem("fwd_basketId")));
+                .checkMessageForClient();
 
-        switchTo().window(1);
+        open("https://agent-front-ag-test.forward.lc/order/ru/mobile/new/" +
+                getApplicationID(localStorage.getItem("fwd_basketId")));
 
         orderPage
                 .clickClientAgreementCheckbox()
@@ -62,11 +61,10 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .clickClientAcceptLeasing()
                 .checkMessageLeasingСonfirmation();
 
-        closeWindow();
-        switchTo().window(0);
+        open("https://agent-front-ag-test.forward.lc/order/contract-create/MWHG2RU~A?agentId=" +
+                getAgentId(localStorage.getItem("fwd_basketId")));
 
         orderPage
-                .clickContinueOrder()
                 .uploadPassport()
                 .uploadSelfie()
                 .enterLocationData("г Москва, Планетная улица, д 2")

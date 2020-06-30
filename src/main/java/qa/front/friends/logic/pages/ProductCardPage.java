@@ -35,9 +35,16 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
         return this;
     }
 
-    @Step("I check {itemName} and {itemVolume} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockItemInfo(String itemName, String itemVolume) {
-        elsCartBlockItemInfo.find(Condition.text(itemName + " " + itemVolume))
+    @Step("I check {itemName} is displayed correctly in cart block")
+    public ProductCardPage checkCartBlockItemName(String itemName) {
+        elsCartBlockItemInfo.find(Condition.text(itemName))
+                .shouldBe(Condition.visible);
+        return this;
+    }
+
+    @Step("I check {itemVolume} is displayed correctly in cart block")
+    public ProductCardPage checkCartBlockItemVolume(String itemVolume) {
+        elsCartBlockItemInfo.find(Condition.text(itemVolume))
                 .shouldBe(Condition.visible);
         return this;
     }

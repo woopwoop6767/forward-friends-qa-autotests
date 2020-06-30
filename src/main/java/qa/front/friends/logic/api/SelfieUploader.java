@@ -24,6 +24,19 @@ public interface SelfieUploader extends Specification {
                 ;
     }
 
+    default String getAgentId(String fwdBasket) {
+        return RestAssured
+                .given()
+                .spec(getRequestSpecification())
+                .basePath("leasing-basket/v1/basket-online/" + fwdBasket)
+                .get()
+                .then()
+                .spec(getResponseSpecification()).extract().body()
+                .jsonPath()
+                .getString("resultData.basketInfo.agentId")
+                ;
+    }
+
     default void selfieUploadApi(String fwdBasket, String authToken) {
         String applicationID = getApplicationID(fwdBasket);
         RestAssured
