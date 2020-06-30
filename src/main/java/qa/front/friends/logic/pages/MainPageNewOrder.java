@@ -1,11 +1,19 @@
 package qa.front.friends.logic.pages;
 
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.SelenideElement;
+import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
+import org.openqa.selenium.html5.LocalStorage;
+import org.openqa.selenium.html5.WebStorage;
+
+import java.util.NoSuchElementException;
+
+import static com.codeborne.selenide.Selenide.*;
 
 import static com.codeborne.selenide.Selenide.$x;
+
+
 public class MainPageNewOrder {
+
 
     private SelenideElement elOrdersButton = $x("//*[@data-test='top-menu' and text() = 'Заявки']");
     private SelenideElement elTariffsButton = $x("//*[@data-test='top-menu' and text() = 'Тарифы']");
@@ -14,8 +22,7 @@ public class MainPageNewOrder {
     private SelenideElement elNewOrderMenuItem = $x("//*[@class='order-menu']//*[text()='Новая заявка']");
     private SelenideElement elContractsMenuItem = $x("//*[@class='order-menu']//*[text()='Мои договоры']");
     private SelenideElement elSearchFieldInput = $x("//input[@data-test='search-field' and @placeholder='Поиск']");
-    private SelenideElement elProductCard = $x("//*[@data-test='product-card']");
-    private SelenideElement elSecondProductCardSearchResult = $x("//div[2][@data-test='product-card']");
+    private ElementsCollection elsProductCardsArray = $$x("//*[@data-test='product-card' and @fxlayout='column']");
 
 
     @Step("I enter item's {itemName} to the search field")
@@ -24,18 +31,18 @@ public class MainPageNewOrder {
         return this;
     }
 
-    @Step("I get webelement by {itemName}")
-    private SelenideElement getSearchResultElementByItemName (String itemName) {
-        return $x("//*[@data-test='product-card']//span[text()='" + itemName + "']");
-    }
-
     @Step("I check search result")
     public MainPageNewOrder checkSearchResult(String itemName) {
-        getSearchResultElementByItemName(itemName).shouldBe(Condition.visible, Condition.enabled);
-        elSecondProductCardSearchResult.shouldNotBe(Condition.visible, Condition.enabled);
+        elsProductCardsArray.find(Condition.text(itemName))
+                .shouldBe(Condition.visible);
         return this;
     }
 
-
+    @Step("I go to product card page")
+    public MainPageNewOrder goToProductCardPage(String itemName) {
+        elsProductCardsArray.find(Condition.text(itemName))
+                .click();
+        return this;
+    }
 
 }
