@@ -3,10 +3,7 @@ package qa.front.friends.logic.pages;
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.WebDriverRunner;
 import io.qameta.allure.Step;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.WebStorage;
 import qa.front.friends.logic.api.SelfieUploader;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -33,7 +30,7 @@ public class OrderPage implements SelfieUploader {
     private SelenideElement elSignLeasingButton = $x("//span[text()='подписать']//ancestor::button");
     private SelenideElement elMessageOrderSignedText = $x("//h3[text()='Договор оформлен']");
     private ElementsCollection elsRegAddressSuggest = $$x("//input[@name='reg-add']/..//*[@class='ng-star-inserted']//span");
-    private ElementsCollection elsValuesInEmploymentTypeSelector = $$x("//span[text()='Выберите тип занятости']//ancestor:: *[@class='select open']//span");
+    private ElementsCollection elsValuesInEmploymentTypeSelector = $$x("//span[text()='Выберите тип занятости']//ancestor:: *[contains(@class,'select open')]//span");
 
 
 
@@ -99,32 +96,14 @@ public class OrderPage implements SelfieUploader {
 
     @Step("I upload passport")
     public OrderPage uploadPassport() {
-        LocalStorage localStorage = ((WebStorage) WebDriverRunner.getWebDriver()).getLocalStorage();
-        localStorage.keySet().forEach(
-                val -> {
-                    if (val.equals("fwd_basketId")) {
-                        passportUploadApi(localStorage.getItem(val),
-                                executeJavaScript(String.format("return window.localStorage.getItem('%s');", "auth-token")).toString());
-                        return;
-                    }
-                }
-        );
+        passportUploadApi();
         refresh();
         return this;
     }
 
     @Step("I upload selfie")
     public OrderPage uploadSelfie() {
-        LocalStorage localStorage = ((WebStorage) WebDriverRunner.getWebDriver()).getLocalStorage();
-        localStorage.keySet().forEach(
-                val -> {
-                    if (val.equals("fwd_basketId")) {
-                        selfieUploadApi(localStorage.getItem(val),
-                                executeJavaScript(String.format("return window.localStorage.getItem('%s');", "auth-token")).toString());
-                        return;
-                    }
-                }
-        );
+        selfieUploadApi();
         refresh();
         return this;
     }

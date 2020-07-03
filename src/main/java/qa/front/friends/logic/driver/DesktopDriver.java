@@ -1,7 +1,9 @@
 package qa.front.friends.logic.driver;
 
+
 import org.testng.annotations.BeforeMethod;
 import qa.front.friends.logic.GetEnv;
+
 
 import static com.codeborne.selenide.Selenide.open;
 
@@ -15,6 +17,7 @@ public interface DesktopDriver extends GetEnv, Capabilities {
         } else {
             initRemoteCapabilities(grid);
         }
+
         open(getPropFromFile("baseURLTest"));
     }
 }
