@@ -16,7 +16,7 @@ public interface Capabilities {
     }
 
     default void initRemoteCapabilities(String grid) {
-        Configuration.timeout = 5000;
+        Configuration.timeout = 10000;
         Configuration.browser = "chrome";
         Configuration.browserVersion = "83.0";
         Configuration.remote = grid.concat("/wd/hub");
@@ -26,6 +26,6 @@ public interface Capabilities {
         Configuration.startMaximized = true;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().enableLogs(LogType.BROWSER, Level.ALL));
-        
+
     }
 }
