@@ -22,6 +22,11 @@ public interface Capabilities {
         Configuration.remote = grid.concat("/wd/hub");
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("enableVNC", true);
+        desiredCapabilities.setCapability("hostsEntries", new String[] {
+                "agent-front-ag-test.forward.lc:192.168.0.12",
+                "liza-act-front-test.forward.lc:192.168.0.12",
+                "subscribe-rf-front-test.forward.lc:192.168.0.12"
+        });
         Configuration.browserCapabilities = desiredCapabilities;
         Configuration.startMaximized = true;
         SelenideLogger.addListener("AllureSelenide", new AllureSelenide().screenshots(true).savePageSource(false));
