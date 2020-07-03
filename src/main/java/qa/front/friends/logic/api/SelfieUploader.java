@@ -1,8 +1,13 @@
 package qa.front.friends.logic.api;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.WebDriverRunner;
 import io.restassured.RestAssured;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.remote.RemoteExecuteMethod;
+import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.html5.RemoteWebStorage;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
@@ -11,11 +16,17 @@ import static java.lang.Thread.sleep;
 
 public interface SelfieUploader extends Specification {
 
-    default String getApplicationID(String fwdBasket) {
+
+    default String getCookieValue (String cookieItem) {
+        RemoteExecuteMethod remoteExecuteMethod = new RemoteExecuteMethod((RemoteWebDriver) WebDriverRunner.getWebDriver());
+        return new RemoteWebStorage(remoteExecuteMethod).getLocalStorage().getItem(cookieItem);
+    }
+
+    default String getApplicationID() {
         return RestAssured
                 .given()
                 .spec(getRequestSpecification())
-                .basePath("leasing-basket/v1/basket-online/" + fwdBasket)
+                .basePath("leasing-basket/v1/basket-online/" + getCookieValue("fwd_basketId"))
                 .get()
                 .then()
                 .spec(getResponseSpecification()).extract().body()
@@ -24,11 +35,12 @@ public interface SelfieUploader extends Specification {
                 ;
     }
 
-    default String getAgentId(String fwdBasket) {
+    default String getAgentId() {
+
         return RestAssured
                 .given()
                 .spec(getRequestSpecification())
-                .basePath("leasing-basket/v1/basket-online/" + fwdBasket)
+                .basePath("leasing-basket/v1/basket-online/" + getCookieValue("fwd_basketId"))
                 .get()
                 .then()
                 .spec(getResponseSpecification()).extract().body()
@@ -37,12 +49,12 @@ public interface SelfieUploader extends Specification {
                 ;
     }
 
-    default void selfieUploadApi(String fwdBasket, String authToken) {
-        String applicationID = getApplicationID(fwdBasket);
+    default void selfieUploadApi() {
+        String applicationID = getApplicationID();
         RestAssured
                 .given()
                 .spec(getRequestSpecification())
-                .header("authorization", "Bearer " + authToken)
+                .header("authorization", "Bearer " + getCookieValue("auth-token"))
                 .header("device-type", "WEB")
                 .basePath("application/v2/leasing-application/upload/" + applicationID + "/photo")
                 .body(new HashMap<String, Object>() {{
@@ -77,12 +89,12 @@ public interface SelfieUploader extends Specification {
         throw new RuntimeException();
     }
 
-    default void passportUploadApi(String fwdBasket, String authToken) {
-        String applicationID = getApplicationID(fwdBasket);
+    default void passportUploadApi() {
+        String applicationID = getApplicationID();
         RestAssured
                 .given()
                 .spec(getRequestSpecification())
-                .header("authorization", "Bearer " + authToken)
+                .header("authorization", "Bearer " + getCookieValue("auth-token"))
                 .header("device-type", "WEB")
                 .basePath("application/v2/leasing-application/upload/" + applicationID + "/photo")
                 .body(new HashMap<String, Object>() {{

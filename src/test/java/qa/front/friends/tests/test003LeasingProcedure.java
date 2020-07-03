@@ -1,8 +1,5 @@
 package qa.front.friends.tests;
 
-import com.codeborne.selenide.WebDriverRunner;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.WebStorage;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import qa.front.friends.logic.GenerateText;
@@ -21,7 +18,6 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
     private MainPageNewOrder mainPageNewOrder;
     private ProductCardPage productCardPage;
     private OrderPage orderPage;
-    private LocalStorage localStorage;
 
     @BeforeMethod
     void setUp() {
@@ -30,7 +26,7 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
         mainPageNewOrder = new MainPageNewOrder();
         productCardPage = new ProductCardPage();
         orderPage = new OrderPage();
-        localStorage = ((WebStorage) WebDriverRunner.getWebDriver()).getLocalStorage();
+
     }
 
     @Test
@@ -51,8 +47,7 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .clickSendApproveToClient()
                 .checkMessageForClient();
 
-        open("https://agent-front-ag-test.forward.lc/order/ru/mobile/new/" +
-                getApplicationID(localStorage.getItem("fwd_basketId")));
+        open("https://agent-front-ag-test.forward.lc/order/ru/mobile/new/" + getApplicationID());
 
         orderPage
                 .clickClientAgreementCheckbox()
@@ -61,8 +56,7 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .clickClientAcceptLeasing()
                 .checkMessageLeasingСonfirmation();
 
-        open("https://agent-front-ag-test.forward.lc/order/contract-create/MWHG2RU~A?agentId=" +
-                getAgentId(localStorage.getItem("fwd_basketId")));
+        open("https://agent-front-ag-test.forward.lc/order/contract-create/MWHG2RU~A?agentId=" + getAgentId());
 
         orderPage
                 .uploadPassport()
