@@ -3,6 +3,8 @@ package qa.front.friends.logic.api;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.config.HttpClientConfig;
+import io.restassured.config.RestAssuredConfig;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
@@ -30,5 +32,14 @@ public interface Specification extends GetEnv {
                 .expectContentType(ContentType.JSON)
                 .build()
                 ;
+    }
+
+    default RestAssuredConfig requestConfig() {
+
+        return RestAssuredConfig.config().httpClient(HttpClientConfig.httpClientConfig().
+                setParam("http.connection.timeout",3000).
+                setParam("http.socket.timeout",3000).
+                setParam("http.connection-manager.timeout",3000));
+
     }
 }

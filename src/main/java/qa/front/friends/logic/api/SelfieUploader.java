@@ -25,6 +25,7 @@ public interface SelfieUploader extends Specification {
     default String getApplicationID() {
         return RestAssured
                 .given()
+                .config(requestConfig())
                 .spec(getRequestSpecification())
                 .basePath("leasing-basket/v1/basket-online/" + getCookieValue("fwd_basketId"))
                 .get()
@@ -39,6 +40,7 @@ public interface SelfieUploader extends Specification {
 
         return RestAssured
                 .given()
+                .config(requestConfig())
                 .spec(getRequestSpecification())
                 .basePath("leasing-basket/v1/basket-online/" + getCookieValue("fwd_basketId"))
                 .get()
@@ -53,6 +55,7 @@ public interface SelfieUploader extends Specification {
         String applicationID = getApplicationID();
         RestAssured
                 .given()
+                .config(requestConfig())
                 .spec(getRequestSpecification())
                 .header("authorization", "Bearer " + getCookieValue("auth-token"))
                 .header("device-type", "WEB")
@@ -72,6 +75,7 @@ public interface SelfieUploader extends Specification {
         for (int i = 0; i < Configuration.timeout / 1000 + 10; i++) {
             String status = RestAssured
                     .given()
+                    .config(requestConfig())
                     .spec(getRequestSpecification())
                     .header("device-type", "WEB")
                     .basePath("application/v1/leasing-application/" + applicationID + "/check-passport-selfie")
@@ -93,6 +97,7 @@ public interface SelfieUploader extends Specification {
         String applicationID = getApplicationID();
         RestAssured
                 .given()
+                .config(requestConfig())
                 .spec(getRequestSpecification())
                 .header("authorization", "Bearer " + getCookieValue("auth-token"))
                 .header("device-type", "WEB")
