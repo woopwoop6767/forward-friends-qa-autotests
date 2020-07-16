@@ -4,6 +4,7 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.By;
 import qa.front.friends.logic.api.SelfieUploader;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -28,9 +29,12 @@ public class OrderPage implements SelfieUploader {
     private SelenideElement elAgentAgreementCheckbox = $x("//*[contains(text(),'ознакомился с текстом')]/..//app-ui-checkbox");
     private SelenideElement elAgentSmsCodeInput = $x("//*[contains(text(),'Код из СМС')]//ancestor::app-form-pin-code-tiny//input[@type='tel']");
     private SelenideElement elSignLeasingButton = $x("//span[text()='подписать']//ancestor::button");
-    private SelenideElement elMessageOrderSignedText = $x("//h3[text()='Договор оформлен']");
+    private SelenideElement elMessageOrderSignedText = $x("//h3[contains(text(),'Договор оформлен')]");
     private ElementsCollection elsRegAddressSuggest = $$x("//input[@name='reg-add']/..//*[@class='ng-star-inserted']//span");
     private ElementsCollection elsValuesInEmploymentTypeSelector = $$x("//span[text()='Выберите тип занятости']//ancestor:: *[contains(@class,'select open')]//span");
+    private SelenideElement elAnnulOrderLink = $(By.linkText("аннулируйте"));
+    private SelenideElement elOrderIsAnnulText = $x("//h2[contains(text(),'Заявка была аннулирована')]");
+    private SelenideElement elIssueNewOrderButton = $x("//button[contains(text(),'Оформить новую')]");
 
 
 
@@ -179,6 +183,30 @@ public class OrderPage implements SelfieUploader {
     @Step("I check message signed order is visible")
     public OrderPage checkMessageOrderIsSigned() {
         elMessageOrderSignedText.shouldBe(Condition.visible);
+        return this;
+    }
+
+    @Step("I click annul order link")
+    public OrderPage clickAnnulOrderLink() {
+        elAnnulOrderLink.click();
+        return this;
+    }
+
+    @Step("I check message order is annul is visible")
+    public OrderPage checkMessageIsAnnulIsVisible() {
+        elOrderIsAnnulText.shouldBe(Condition.visible);
+        return this;
+    }
+
+    @Step("I click issue new order button")
+    public OrderPage clickIssueNewOrderButton() {
+        elIssueNewOrderButton.click();
+        return this;
+    }
+
+    @Step("I check send approve to client button is visible")
+    public OrderPage checkSendApproveToClientButtonIsVisible() {
+        elSendApproveToClientButton.shouldBe(Condition.visible);
         return this;
     }
 

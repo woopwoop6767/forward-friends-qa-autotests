@@ -2,8 +2,6 @@ package qa.front.friends.logic.pages;
 
 import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.WebStorage;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import qa.front.friends.logic.WebElementsCollectionHandler;
 import qa.front.friends.logic.api.SelfieUploader;

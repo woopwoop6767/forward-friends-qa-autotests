@@ -2,10 +2,6 @@ package qa.front.friends.logic.pages;
 
 import com.codeborne.selenide.*;
 import io.qameta.allure.Step;
-import org.openqa.selenium.html5.LocalStorage;
-import org.openqa.selenium.html5.WebStorage;
-
-import java.util.NoSuchElementException;
 
 import static com.codeborne.selenide.Selenide.*;
 
@@ -42,6 +38,12 @@ public class MainPageNewOrder {
     public MainPageNewOrder goToProductCardPage(String itemName) {
         elsProductCardsArray.find(Condition.text(itemName))
                 .click();
+        return this;
+    }
+
+    @Step("I click user cabinet button")
+    public MainPageNewOrder clickCabinetButton() {
+        elCabinetButton.click();
         return this;
     }
 
