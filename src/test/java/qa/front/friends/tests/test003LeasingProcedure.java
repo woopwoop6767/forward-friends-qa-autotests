@@ -18,6 +18,8 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
     private MainPageNewOrder mainPageNewOrder;
     private ProductCardPage productCardPage;
     private OrderPage orderPage;
+    private BestToPayPage bestToPayPage;
+    private SubscribeOrderPage subscribeOrderPage;
 
     @BeforeMethod
     void setUp() {
@@ -26,6 +28,8 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
         mainPageNewOrder = new MainPageNewOrder();
         productCardPage = new ProductCardPage();
         orderPage = new OrderPage();
+        bestToPayPage = new BestToPayPage();
+        subscribeOrderPage = new SubscribeOrderPage();
 
     }
 
@@ -72,7 +76,24 @@ public class test003LeasingProcedure implements DesktopDriver, SelfieUploader, G
                 .clickAgentAgreementCheckbox()
                 .enterAgentSmsCode("1111")
                 .clickSignLeasing()
-                .checkMessageOrderIsSigned();
+                .checkMessageOrderIsSigned()
+                .clickArrangeDeliveryRadioButton()
+                .clickPayByCardButton();
+
+        bestToPayPage
+                .enterCardNumber("5570 7251 1108 1379")
+                .enterCardDate("05/2022")
+                .enterCardCvc("415")
+                .clickPayByCard();
+
+        subscribeOrderPage
+                .clickEntranceButton()
+                .enterPhoneNumber("9683333423")
+                .enterSmsCode("1111")
+                .clickGetCodeForSignButton()
+                .enterSmsCode("1111")
+                .clickSignOrderButton()
+                .checkOrderingIsCompleteIsVisible();
 
         }
 }

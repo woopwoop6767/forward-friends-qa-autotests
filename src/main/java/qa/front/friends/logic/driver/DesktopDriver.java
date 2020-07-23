@@ -17,7 +17,7 @@ public interface DesktopDriver extends GetEnv, Capabilities {
         } else {
             initRemoteCapabilities(grid);
         }
-        
+
         open(getPropFromFile("baseURLTest"));
     }
 }

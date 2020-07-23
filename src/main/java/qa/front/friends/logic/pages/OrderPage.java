@@ -35,6 +35,8 @@ public class OrderPage implements SelfieUploader {
     private SelenideElement elAnnulOrderLink = $(By.linkText("аннулируйте"));
     private SelenideElement elOrderIsAnnulText = $x("//h2[contains(text(),'Заявка была аннулирована')]");
     private SelenideElement elIssueNewOrderButton = $x("//button[contains(text(),'Оформить новую')]");
+    private SelenideElement elArrangeDeliveryRadioButton = $x("//*[@class='switch-title' and contains(text(),'Оформить доставку')]");
+    private SelenideElement elPayByCardButton = $x("//span[contains(text(),'Оплатить картой')]/ancestor::button");
 
 
 
@@ -207,6 +209,18 @@ public class OrderPage implements SelfieUploader {
     @Step("I check send approve to client button is visible")
     public OrderPage checkSendApproveToClientButtonIsVisible() {
         elSendApproveToClientButton.shouldBe(Condition.visible);
+        return this;
+    }
+
+    @Step("I click [Arrange delivery] radio button")
+    public OrderPage clickArrangeDeliveryRadioButton() {
+        elArrangeDeliveryRadioButton.click();
+        return this;
+    }
+
+    @Step("I click [Pay by Card] button")
+    public OrderPage clickPayByCardButton() {
+        elPayByCardButton.waitUntil(Condition.visible, 20000).click();
         return this;
     }
 

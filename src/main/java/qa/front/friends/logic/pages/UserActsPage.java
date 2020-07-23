@@ -17,6 +17,12 @@ public class UserActsPage {
     private ElementsCollection elsPaymentColumnValues = $$x("//*[@class='table-orders-body']//*[@fxlayout='row' and not (@fxlayoutalign)]//*[4]");
     private ElementsCollection elsContractsColumnValues = $$x("//*[@class='table-orders-body']//*[@fxlayout='row' and not (@fxlayoutalign)]//*[5]");
     private ElementsCollection elsRowsInActsTable = $$x("//*[@class='table-orders-body']//*[@fxlayout='row' and not (@fxlayoutalign)]");
+    private SelenideElement elConfirmWithdrawButton = $x("//*[contains(text(),'Подтвердить выплату')]/ancestor::button");
+    private SelenideElement elSignWithdrawButton = $x("//*[contains(text(),'Подписать')]/ancestor::button");
+    private SelenideElement elAgreeTermsCheckbox = $x("//span[contains(text(),'С условиями согласен')]/ancestor::*[@data-test='agree-terms' and @role='checkbox']");
+    private SelenideElement elSmsCodeInput = $x("//input[@data-test='pin-input']");
+    private SelenideElement elBackLink = $x("//*[@data-test='link-back']");
+    private SelenideElement elAnnulFirstActInTableLink = $x("//*[@data-test='annul-act'][1]");
 
 
     @Step("I check number of displayed acts is visible")
@@ -87,7 +93,7 @@ public class UserActsPage {
     @Step("I check contracts column matches regex")
     public UserActsPage checkContractsColumnMatchesRegex() {
         for (SelenideElement el : elsContractsColumnValues) {
-            el.shouldHave(Condition.matchText("^(\\d+[,]{1} \\d+)|(^\\d+)$"));
+            el.shouldHave(Condition.matchText("(^\\d+)$|^(\\d+[,]{1} \\d+)"));
         }
         return this;
     }
@@ -99,6 +105,48 @@ public class UserActsPage {
         checkStatusColumnMatchesRegex();
         checkPaymentColumnMatchesRegex();
         checkContractsColumnMatchesRegex();
+        return this;
+    }
+
+    @Step("I click [Confirm withdraw] button")
+    public UserActsPage clickConfirmWithDrawButton() {
+        elConfirmWithdrawButton.click();
+        return this;
+    }
+
+    @Step("I check [Sign withdraw] button is disabled")
+    public UserActsPage checkSignWithdrawButtonIsDisabled() {
+        elSignWithdrawButton.shouldNotBe(Condition.enabled);
+        return this;
+    }
+
+    @Step("I check [Sign withdraw] button is enable")
+    public UserActsPage checkSignWithdrawButtonIsEnable() {
+        elSignWithdrawButton.shouldBe(Condition.enabled);
+        return this;
+    }
+
+    @Step("I click [Agree terms] checkbox")
+    public UserActsPage clickAgreeTermsCheckbox() {
+        elAgreeTermsCheckbox.click();
+        return this;
+    }
+
+    @Step("I enter SMS code {smsCode}")
+    public UserActsPage enterSmsCode(String smsCode) {
+        elSmsCodeInput.sendKeys(smsCode);
+        return this;
+    }
+
+    @Step("I click [Back] link")
+    public UserActsPage clickBackLink() {
+        elBackLink.click();
+        return this;
+    }
+
+    @Step("I click [Annul] first act in table")
+    public UserActsPage clickAnnulFirstActInTableLink() {
+        elAnnulFirstActInTableLink.click();
         return this;
     }
 

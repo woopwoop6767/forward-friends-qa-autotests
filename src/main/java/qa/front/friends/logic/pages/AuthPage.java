@@ -9,7 +9,7 @@ public class AuthPage {
 
     private SelenideElement elLoginPhoneNumberInput = $x("//input[@data-test='login-phone-input']");
     private SelenideElement elPasswordInput = $x("//input[@data-test='login-pin-input']");
-    private SelenideElement elLoginButton = $x("//div[(text()='Войти')]/ancestor::button[1]");
+    private SelenideElement elLoginButton = $x("//div[contains(text(),'Войти')]/ancestor::button[1]");
 
     @Step("I enter login {login}")
     public AuthPage enterLogin(String login) {

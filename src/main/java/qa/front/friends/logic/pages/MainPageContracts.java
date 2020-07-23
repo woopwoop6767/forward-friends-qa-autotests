@@ -26,6 +26,7 @@ public class MainPageContracts {
     private ElementsCollection elsItemColumnValues = $$x("//*[@class='table-orders-body']//*[@fxlayout='row']//div[4]");
     private ElementsCollection elsContractColumnValues = $$x("//*[@class='table-orders-body']//*[@fxlayout='row']//div[5]");
     private ElementsCollection elsStatusColumnValues = $$x("//*[@class='table-orders-body']//*[@fxlayout='row']//div[6]");
+    private SelenideElement elAppsLink = $x("//*[@class='header-menu']//a[@data-test='top-menu' and contains(text(),'Заявки')]");
 
 
 
@@ -63,6 +64,12 @@ public class MainPageContracts {
     @Step("I check active balance is not equals 0")
     public MainPageContracts checkActiveBalanceIsNotEqualZero() {
         elActiveBalanceInfo.shouldNotHave(Condition.matchText("0 ₽"));
+        return this;
+    }
+
+    @Step("I check active balance equals 0")
+    public MainPageContracts checkActiveBalanceEqualsZero() {
+        elActiveBalanceInfo.shouldHave(Condition.matchText("0 ₽"));
         return this;
     }
 
@@ -150,7 +157,16 @@ public class MainPageContracts {
         return this;
     }
 
+    @Step("I click [Withdraw] button")
+    public MainPageContracts clickWithdrawButton() {
+        elWithdrawButton.click();
+        return this;
+    }
 
-
+    @Step("I click [Applications] link")
+    public MainPageContracts clickAppsLink() {
+        elAppsLink.click();
+        return this;
+    }
 
 }
