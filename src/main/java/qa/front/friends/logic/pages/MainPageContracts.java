@@ -35,7 +35,7 @@ public class MainPageContracts {
         return this;
     }
 
-    @Step("I check active balance equals 0")
+    @Step("I check active balance is not equal 0")
     public MainPageContracts checkActiveBalanceIsNotEqualZero() {
         elActiveBalanceInfo.shouldNotHave(Condition.matchText("0 ₽"));
         return this;
