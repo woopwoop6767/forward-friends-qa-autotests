@@ -28,7 +28,6 @@ public class test004CheckContractsDataInfo implements DesktopDriver {
                 .clickMyContractsButton()
                 .checkStatisticBarDataIsNotEqualZero()
                 .checkContractsTableHasRows()
-                .clickLoadMoreContractsButton()
-                .checkContractsTableValuesMatchRegex();
+                .clickLoadMoreContractsButton();
     }
 }
