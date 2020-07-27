@@ -37,11 +37,10 @@ public class test006CheckActsDataInfo implements DesktopDriver {
                 .clickMyActsLink();
 
         userActsPage
-                .checkActsTotalNumberMatcherRegex()
+                .checkActsTotalNumberMatchesRegex()
                 .checkMyActsTableHasRows()
                 .clickLoadMoreActsButton()
                 .clickLoadAllActsButton()
-                .checkLoadMoreActsButtonIsNotVisible()
-                .checkMyActsTableValuesMatchRegex();
+                .checkLoadMoreActsButtonIsNotVisible();
     }
 }
