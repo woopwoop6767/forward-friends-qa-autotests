@@ -24,9 +24,9 @@ public class UserCabinetPage {
     private SelenideElement elSnilsInput = $x("//*[contains(text(),'Документы')]//following::input[@data-test='snils-field']");
     private SelenideElement elPayAccNumberInput = $x("//*[contains(text(),'Реквизиты для получения')]//following::input[@data-test='pay-account-number-field']");
     private SelenideElement elPayAccBikInput = $x("//*[contains(text(),'Реквизиты для получения')]//following::input[@data-test='pay-account-bik-field']");
-    private SelenideElement elEditUserDataButton = $x("//*[contains(text(),'Изменить')]//ancestor::button");
-    private SelenideElement elSaveUserDataButton = $x("//*[contains(text(),'Сохранить')]//ancestor::button");
-    private SelenideElement elCalcelUserDataButton = $x("//*[contains(text(),'Отмена')]//ancestor::button");
+    private SelenideElement elEditUserDataButton = $x("//button[.//*[contains(text(),'Изменить')]]");
+    private SelenideElement elSaveUserDataButton = $x("//button[.//*[contains(text(),'Сохранить')]]");
+    private SelenideElement elCalcelUserDataButton = $x("//button[.//*[contains(text(),'Отмена')]]");
     private ElementsCollection elsBikBankSelector = $$x("//*[@data-test='set-pay-account-bik']");
     private SelenideElement elSuccessAlert = $x("//*[contains(text(),'Изменения успешно сохранены')]");
 

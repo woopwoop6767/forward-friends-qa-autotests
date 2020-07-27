@@ -12,8 +12,8 @@ public class SubscribeOrderPage {
     SelenideElement elEntranceButton = $x("//button[contains(text(),'Вход')]");
     SelenideElement elPhoneNumberInput = $x("//input[@name='phone']");
     SelenideElement elPinCodeInput = $x("//input[@name='number']");
-    SelenideElement elGetCodeForSignButton = $x("//span[contains(text(),'Получить код для подписания')]/ancestor::button");
-    SelenideElement elSignOrderButton = $x("//span[contains(text(),'Подписать')]/ancestor::button");
+    SelenideElement elGetCodeForSignButton = $x("//button[.//span[contains(text(),'Получить код для подписания')]]");
+    SelenideElement elSignOrderButton = $x("//button[.//span[contains(text(),'Подписать')]]");
     SelenideElement elOrderingIsCompleteText = $x("//p[contains(text(),'Вы завершили процедуру оформления')]");
 
 
