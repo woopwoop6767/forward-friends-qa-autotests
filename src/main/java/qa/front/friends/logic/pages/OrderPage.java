@@ -26,7 +26,7 @@ public class OrderPage implements SelfieUploader {
     private SelenideElement elEmploymentTypeSelector = $x("//span[text()='Выберите тип занятости']");
     private SelenideElement elMonthlySalaryInput = $x("//input[@name='monthlySalary']");
     private SelenideElement elSendAgentDataButton = $x("//span[text()='Отправить']/ancestor::button");
-    private SelenideElement elAgentAgreementCheckbox = $x("//*[contains(text(),'ознакомился с текстом')]/..//app-ui-checkbox");
+    private SelenideElement elAgentAgreementCheckbox = $x("//*[contains(text(),'Подписать договор онлайн')]/ancestor::app-form-checkbox//app-ui-checkbox");
     private SelenideElement elAgentSmsCodeInput = $x("//*[contains(text(),'Код из СМС')]//ancestor::app-form-pin-code-tiny//input[@type='tel']");
     private SelenideElement elSignLeasingButton = $x("//span[text()='подписать']//ancestor::button");
     private SelenideElement elMessageOrderSignedText = $x("//h3[contains(text(),'Договор оформлен')]");
