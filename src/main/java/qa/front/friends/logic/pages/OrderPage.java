@@ -17,18 +17,18 @@ public class OrderPage implements SelfieUploader {
     private SelenideElement elMessageToClientText = $x("//*[contains(text(),'Клиенту отправлено смс-сообщение')]");
     private SelenideElement elClientAgreementCheckbox = $x("//span[contains(text(),'Проставляя галочку')]//ancestor::*[contains(@class,'row label')]//app-ui-checkbox");
     private SelenideElement elClientDataProcessingCheckbox = $x("//span[contains(text(),'ознакомился с текстом')]//ancestor::*[contains(@class,'row label')]//app-ui-checkbox");
-    private SelenideElement elClientSmsCodeInput = $x("//app-form-pin-code-tiny//input[@type='tel']");
-    private SelenideElement elClientAcceptLeasingButton = $x("//span[contains(text(),'Подтвердить')]/..");
+    private SelenideElement elClientSmsCodeInput = $x("//input[@type='tel']");
+    private SelenideElement elClientAcceptLeasingButton = $x("//button[.//span[contains(text(),'Подтвердить')]]");
     private SelenideElement elMessageLeasingСonfirmationText = $x("//*[contains(text(),'Спасибо за подтверждение.')]");
-    private SelenideElement elContinueOrderButton = $x("//button//span[contains(text(),'Продолжить')]");
+    private SelenideElement elContinueOrderButton = $x("//button[.//span[contains(text(),'Продолжить')]]");
     private SelenideElement elLocationInput = $x("//input[@name='reg-add']");
     private SelenideElement elRegistrationFlatInput = $x("//input[@name='registration-flat']");
     private SelenideElement elEmploymentTypeSelector = $x("//span[text()='Выберите тип занятости']");
     private SelenideElement elMonthlySalaryInput = $x("//input[@name='monthlySalary']");
-    private SelenideElement elSendAgentDataButton = $x("//span[text()='Отправить']/ancestor::button");
-    private SelenideElement elAgentAgreementCheckbox = $x("//*[contains(text(),'ознакомился с текстом')]/..//app-ui-checkbox");
+    private SelenideElement elSendAgentDataButton = $x("//button[.//text()='Отправить']");
+    private SelenideElement elAgentAgreementCheckbox = $x("//*[contains(text(),'Подписать договор онлайн')]/ancestor::app-form-checkbox//app-ui-checkbox");
     private SelenideElement elAgentSmsCodeInput = $x("//*[contains(text(),'Код из СМС')]//ancestor::app-form-pin-code-tiny//input[@type='tel']");
-    private SelenideElement elSignLeasingButton = $x("//span[text()='подписать']//ancestor::button");
+    private SelenideElement elSignLeasingButton = $x("//button[.//span[text()='подписать']]");
     private SelenideElement elMessageOrderSignedText = $x("//h3[contains(text(),'Договор оформлен')]");
     private ElementsCollection elsRegAddressSuggest = $$x("//input[@name='reg-add']/..//*[@class='ng-star-inserted']//span");
     private ElementsCollection elsValuesInEmploymentTypeSelector = $$x("//span[text()='Выберите тип занятости']//ancestor:: *[contains(@class,'select open')]//span");
@@ -36,7 +36,7 @@ public class OrderPage implements SelfieUploader {
     private SelenideElement elOrderIsAnnulText = $x("//h2[contains(text(),'Заявка была аннулирована')]");
     private SelenideElement elIssueNewOrderButton = $x("//button[contains(text(),'Оформить новую')]");
     private SelenideElement elArrangeDeliveryRadioButton = $x("//*[@class='switch-title' and contains(text(),'Оформить доставку')]");
-    private SelenideElement elPayByCardButton = $x("//span[contains(text(),'Оплатить картой')]/ancestor::button");
+    private SelenideElement elPayByCardButton = $x("//button[.//span[contains(text(),'Оплатить картой')]");
 
 
 

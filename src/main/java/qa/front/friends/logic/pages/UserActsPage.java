@@ -12,8 +12,8 @@ public class UserActsPage {
     private SelenideElement elLoadMoreActsButton = $x("//a[@data-test='load-acts' and contains(text(),'Загрузить ещё')]");
     private SelenideElement elLoadAllActsButton = $x("//a[@data-test='acts-show-all' and contains(text(),'Все')]");
     private ElementsCollection elsRowsInActsTable = $$x("//*[@class='table-orders-body']//*[@fxlayout='row' and not (@fxlayoutalign)]");
-    private SelenideElement elConfirmWithdrawButton = $x("//*[contains(text(),'Подтвердить выплату')]/ancestor::button");
-    private SelenideElement elSignWithdrawButton = $x("//*[contains(text(),'Подписать')]/ancestor::button");
+    private SelenideElement elConfirmWithdrawButton = $x("//button[.//*[contains(text(),'Подтвердить выплату')]]");
+    private SelenideElement elSignWithdrawButton = $x("//button[.//*[contains(text(),'Подписать')]]");
     private SelenideElement elAgreeTermsCheckbox = $x("//span[contains(text(),'С условиями согласен')]/ancestor::*[@data-test='agree-terms' and @role='checkbox']");
     private SelenideElement elSmsCodeInput = $x("//input[@data-test='pin-input']");
     private SelenideElement elBackLink = $x("//*[@data-test='link-back']");

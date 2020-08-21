@@ -12,7 +12,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.urlContains;
 public class ProductCardPage implements WebElementsCollectionHandler, SelfieUploader {
 
 
-    private SelenideElement elBackToCatalogButton = $x("//app-button[@title='Назад к списку']//button[1]");
+    private SelenideElement elBackToCatalogButton = $x("//app-button[@title='Назад к списку']//button");
     private SelenideElement elBuyButton = $x("//app-button[@title='Оформить']//button[1]");
     private ElementsCollection elsVolumeRadioButtons = $$x("//*[@data-test='volume-select']//*[@style='display: block;']//*[@data-test='radio-point']");
     private ElementsCollection elsCoverColorRadioButtons = $$x("//*[@data-test='color-select']//*[@data-test='radio-point']");

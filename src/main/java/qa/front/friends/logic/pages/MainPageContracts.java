@@ -17,7 +17,7 @@ public class MainPageContracts {
     private SelenideElement elApplicationsIssuedInfo = $x("//*[contains(text(),'Выдано')]/preceding-sibling::*[@class='act-title']");
     private SelenideElement elSummaryBalanceInfo = $x("//*[contains(text(),'Баланс за все время')]//ancestor::*[@class='act-block']//*[@class='act-title rubles']");
     private SelenideElement elActiveBalanceInfo = $x("//*[contains(text(),'На счету')]//ancestor::*[contains(@class,'act-block')]//*[contains(@class,'act-title rubles')]");
-    private SelenideElement elWithdrawButton = $x("//*[text()='Снять']/ancestor::button");
+    private SelenideElement elWithdrawButton = $x("//button[.//*[text()='Снять']]");
     private ElementsCollection elsRowsInContractsTable = $$x("//*[@class='table-orders-body']//*[@fxlayout='row' and not (@fxlayoutalign)]");
     private SelenideElement elLoadMoreContractsButton = $x("//a[contains(text(),'Загрузить ещё')]");
     private SelenideElement elAppsLink = $x("//*[@class='header-menu']//a[@data-test='top-menu' and contains(text(),'Заявки')]");
@@ -43,11 +43,11 @@ public class MainPageContracts {
 
     @Step("I check statistic bar data is not equal 0")
     public MainPageContracts checkStatisticBarDataIsNotEqualZero() {
-        elNumberOfApplicationsInfo.shouldNotHave(Condition.matchText("0"));
-        elApplicationsToIssueInfo.shouldNotHave(Condition.matchText("0"));
-        elApplicationsIssuedInfo.shouldNotHave(Condition.matchText("0"));
-        elSummaryBalanceInfo.shouldNotHave(Condition.matchText("0 ₽"));
-        elActiveBalanceInfo.shouldNotHave(Condition.matchText("0 ₽"));
+        elNumberOfApplicationsInfo.shouldNotHave(Condition.exactText("0"));
+        elApplicationsToIssueInfo.shouldNotHave(Condition.exactText("0"));
+        elApplicationsIssuedInfo.shouldNotHave(Condition.exactText("0"));
+        elSummaryBalanceInfo.shouldNotHave(Condition.exactText("0 ₽"));
+        elActiveBalanceInfo.shouldNotHave(Condition.exactText("0 ₽"));
         return this;
     }
 
