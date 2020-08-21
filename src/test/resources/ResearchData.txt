@@ -1,0 +1,181 @@
+
+================================================= Действие с Selenide-элементом с через action() ============================================
+elGoToItemCardButton.shouldBe(Condition.visible);
+actions().moveToElement(elGoToItemCardButton).click().perform();
+
+
+============================= Фильтрация и поиск веб-элементов коллекции через stream() с лямбда-выражением ==================================
+
+    @Step("")
+    public MainPageNewOrder elsCollection() {
+        elSecondProductCardSearchResult.shouldNotBe(Condition.visible);
+        elsProductCardsBox.shouldBe(CollectionCondition.sizeGreaterThan(0)).stream()
+                .filter(gg -> gg.getText().contains("Apple iPhone 11 Pro Max"))
+                .findFirst().orElseThrow(NoSuchElementException::new).find(By.xpath(".//following-sibling::*[contains(text(),'" + monthPay + "')]")).click();
+        elSecondProductCardSearchResult.shouldBe(Condition.visible);
+        return this;
+    }
+
+    ================================ Доступ к LocalStorage и отправка POST-запроса RestAssured и извлечение параметра ===============================
+
+   LocalStorage localStorage = ((WebStorage) WebDriverRunner.getWebDriver()).getLocalStorage();
+   default String getCookieValue (String cookieItem) {
+           RemoteExecuteMethod remoteExecuteMethod = new RemoteExecuteMethod((RemoteWebDriver) WebDriverRunner.getWebDriver());
+           RemoteWebStorage remoteWebStorage = new RemoteWebStorage(remoteExecuteMethod);
+           LocalStorage webStorage = remoteWebStorage.getLocalStorage();
+           return remoteWebStorage.getLocalStorage().getItem(cookieItem);
+       } //////////////////////////// Доступ к удалённому LocalStorage
+
+             String fwd_basketId = localStorage.getItem("fwd_basketId");
+             String token = localStorage.getItem("auth-token");
+             String userID = localStorage.getItem("fwd_usid");
+             $x("//input[@name='email']").sendKeys("123@123.com");
+
+
+             String applicationId = RestAssured
+                     .given()
+                     .contentType("application/json")
+                     .header("auth-token", token)
+                     .header("Forward", "{}")
+                     .header("fwd_usid", userID)
+                     .header("Device-Type", "")
+                     .body(new HashMap(){{
+                         put("agreementSimpleSign", true);
+                         put("basketId",fwd_basketId);
+                         put("email", "123@123.mail");
+                         put("mobilePhone","1234567890");
+                         put("previousApplicationId",null);
+                         put("type","NEW");
+                     }})
+                     .when()
+                     .post("https://agent-front-ag-test.forward.lc/application/v2/leasing-application")
+                     .then()
+                     .log().all()
+                     .statusCode(200)
+                     .extract().body().jsonPath().getString("resultData.applicationID")
+                     ;
+
+   вариант отправки body() через hashMap
+   HashMap<String, Object> hashMap = new HashMap<>();
+                     hashMap.put("agreementSimpleSign", true);
+                     hashMap.put("basketId",fwd_basketId);
+                     hashMap.put("email", "123@123.mail");
+                     hashMap.put("mobilePhone","1234567890");
+                     hashMap.put("previousApplicationId",null);
+                     hashMap.put("type","NEW");
+                     и в body передай переменную hashmap
+
+
+   ============================== Отправка GET-запроса RestAssured и извлечение параметра ===============================
+
+           String qq = RestAssured
+                   .given()
+                   .spec(getRequestSpecification("https://agent-front-ag-test.forward.lc/"))
+                   .basePath("leasing-basket/v1/basket-online/" + fwd_basketId)
+                   .get()
+                   .then()
+                   .log().all()
+                   .spec(getResponseSpecification()).extract().body()
+                   .jsonPath()
+                   .getString("resultData.basketInfo.referenceId")
+           ;
+
+================================= Пример с коллекцией веб-элементов и фильтрацией stream ===================================
+
+    default SelenideElement getFirstMatchElement(ElementsCollection elementsCollection, String elementByText) {
+       return elementsCollection.shouldBe(CollectionCondition.sizeGreaterThan(0)).stream()
+                .filter(var -> var.shouldBe(Condition.visible).getText().contains(elementByText))
+                .findFirst().orElseThrow(NoSuchElementException::new);
+    }
+    private ElementsCollection elsCartBlockItemInfo = $$x("//*[@style='display: block;']//*[@data-test='cart-block']//*[@class='basket-name']");
+    getFirstMatchElement(elsVolumeRadioButtons, itemVolume).click();
+
+            getFirstMatchElement(elsCartBlockItemInfo, "Цвет")
+                    .$x(".//following-sibling::*[contains(text(),'" + itemColor + "')]")
+                    .shouldBe(Condition.visible);
+
+
+
+================================ Генерация номера =================================================
+    default String generateMobilePhone() {
+        return "9".concat(RandomStringUtils.randomNumeric(9));
+    }
+
+    import org.apache.commons.text.RandomStringGenerator;
+        default String generateMobilePhone() {
+            return new RandomStringGenerator.Builder().withinRange('0', '9')
+                    .usingRandom()
+                    .build().generate(9);
+        }
+
+    default String generateMobilePhone() {
+            return new StringBuilder().append(9).append(RandomStringUtils.randomNumeric(9)).toString();
+        }
+
+
+================================================= Настройка для Jenkins ================================================
+pipeline {
+    agent any
+    environment {
+        fwdRepo = 'ssh://git@bitbucket.org/forwardleasing/qa-friends-front.git'
+    }
+    stages {
+        stage('checkout repository') {
+            steps {
+                git url: env.fwdRepo
+            }
+        }
+        stage('Run Test') {
+            steps {
+                catchError {
+                    sh 'gradle clean test --debug'
+                }
+            }
+        }
+        stage('Report') {
+            steps {
+                echo 'Reporting..'
+                allure([
+                         includeProperties: false,
+                         jdk: '',
+                         reportBuildPolicy: 'ALWAYS',
+                         results: [[path: 'build/allure-results']]
+                         ])
+            }
+        }
+    }
+    post {
+        success {
+            slackSend (color: 'good', message: '✅  Test qa-friends-front ended successfully 🤩')
+        }
+        failure {
+            slackSend (color: 'bad',  message: '⛔️ Test qa-friends-front ended UNsuccessfully 🤬')
+        }
+
+    }
+}
+
+================================================= Открыть новую вкладку в браузере ================================================
+    @Step("I open new tab in browser with URL {URL}")
+    public OrderPage openNewTabInBrowserWithUrl(String url) {
+        executeJavaScript("window.open('"+ url +"','_blank');");
+        return this;
+    }
+
+    closeWindow();
+    switchTo().window(0);
+    open();
+
+    ================================================= Установка ожидания Selenide ================================================
+
+    new WebDriverWait(WebDriverRunner.getWebDriver(), 2).until(elsActNumberColumnValues.exclude());
+
+    ================================================= Проверка текста в элементах коллекции по регулярному выражению ================================================
+
+     @Step("I check client column matches regex")
+        public MainPageContracts checkClientColumnMatchesRegex() {
+            for (SelenideElement el : elsClientColumnValues) {
+                el.shouldHave(Condition.matchText("^[А-Яа-я]+ [А-Яа-я]{1}[*]+[А-Яа-я]{1} \\d+[*]+\\d+$"));
+            }
+            return this;
+        }
