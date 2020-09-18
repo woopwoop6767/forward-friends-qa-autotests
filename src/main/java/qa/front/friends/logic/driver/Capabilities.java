@@ -1,5 +1,6 @@
 package qa.front.friends.logic.driver;
 
+import com.codeborne.selenide.Browsers;
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
 import io.qameta.allure.selenide.AllureSelenide;
@@ -15,10 +16,29 @@ public interface Capabilities {
         Configuration.driverManagerEnabled = true;
     }
 
-    default void initRemoteCapabilities(String grid) {
+    default void initRemoteCapabilities(String grid, String browser) {
+
+        switch(browser.trim().toLowerCase()) {
+            case ("firefox"):
+            case ("ff"):
+                Configuration.browser = Browsers.FIREFOX;
+                Configuration.browserVersion = "77.0";
+                break;
+            case ("opera"):
+                Configuration.browser = Browsers.OPERA;
+                Configuration.browserVersion = "69.0";
+                break;
+            case ("chrome"):
+            default:
+                Configuration.browser = Browsers.CHROME;
+                Configuration.browserVersion = "84.0";
+                break;
+
+        }
+
         Configuration.timeout = 10000;
-        Configuration.browser = "chrome";
-        Configuration.browserVersion = "83.0";
+//        Configuration.browser = "chrome";
+//        Configuration.browserVersion = "83.0";
         Configuration.remote = grid.concat("/wd/hub");
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         desiredCapabilities.setCapability("enableVNC", true);

@@ -12,10 +12,11 @@ public interface DesktopDriver extends GetEnv, Capabilities {
     @BeforeMethod(alwaysRun = true)
     default void initDriver() {
         String grid = getEnv("grid_url");
+        String browser = getEnv("browser");
         if (grid.equals("default")) {
             initLocalCapabilities();
         } else {
-            initRemoteCapabilities(grid);
+            initRemoteCapabilities(grid, browser);
         }
 
         open(getPropFromFile("baseURLTest"));

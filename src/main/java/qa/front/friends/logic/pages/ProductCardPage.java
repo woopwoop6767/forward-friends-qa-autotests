@@ -14,78 +14,77 @@ public class ProductCardPage implements WebElementsCollectionHandler, SelfieUplo
 
     private SelenideElement elBackToCatalogButton = $x("//app-button[@title='Назад к списку']//button");
     private SelenideElement elBuyButton = $x("//app-button[@title='Оформить']//button[1]");
-    private ElementsCollection elsVolumeRadioButtons = $$x("//*[@data-test='volume-select']//*[@style='display: block;']//*[@data-test='radio-point']");
-    private ElementsCollection elsCoverColorRadioButtons = $$x("//*[@data-test='color-select']//*[@data-test='radio-point']");
-    private ElementsCollection elsCartBlockItemInfo = $$x("//*[@style='display: block;']//*[@data-test='cart-block']//*[contains(@style,'flex-direction')]");
+    private SelenideElement elCartBlockItemValueInfo = $x("//*[@data-test='product-price']/../*[1]");
+    private ElementsCollection elsOptionsRadioBtns= $$x("//*[@class='name-item' and //app-radio-element[@data-test='radio-point']]");
+    private SelenideElement elProductPriceInfo = $x("//*[@data-test='product-price']");
+    private SelenideElement elProductColorInfo = $x("//*[@data-test='product-color']");
+    private SelenideElement elProductDeliveryTypeInfo = $x("//*[@data-test='product-delivery']");
+    private SelenideElement elProductTotalAmountInfo = $x("//*[@data-test='total-amount']");
+    private SelenideElement elProductResidualSumInfo = $x("//*[@data-test='residual-sum']");
+    private SelenideElement elProductMonthTermInfo = $x("//*[@data-test='month-term']");
+    private SelenideElement elProductAmountPayInfo = $x("//*[@data-test='amount-pay']");
 
 
-    @Step("I click {itemVolume} radio button")
-    public ProductCardPage clickVolumeRadioButton(String itemVolume) {
-        elsVolumeRadioButtons.find(Condition.text(itemVolume))
+    @Step("I click {optionValue} radio button")
+    public ProductCardPage clickOptionsRadioBtn(String optionValue) {
+        elsOptionsRadioBtns.find(Condition.text(optionValue))
                 .click();
         return this;
     }
 
-    @Step("I click {itemColor} radio button")
-    public ProductCardPage clickCoverColorRadioButton(String itemColor) {
-        elsCoverColorRadioButtons.find(Condition.text(itemColor))
-                .click();
+    @Step("I check {itemValue} is displayed correctly in cart block")
+    public ProductCardPage checkCartBlockItemValue(String itemValue) {
+        elCartBlockItemValueInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(itemValue));
         return this;
     }
 
-    @Step("I check {itemName} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockItemName(String itemName) {
-        elsCartBlockItemInfo.find(Condition.text(itemName))
-                .shouldBe(Condition.visible);
+    @Step("I check {productPrice} is displayed correctly in cart block")
+    public ProductCardPage checkProductPriceInfo(String productPrice) {
+        elProductPriceInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productPrice));
         return this;
     }
 
-    @Step("I check {itemVolume} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockItemVolume(String itemVolume) {
-        elsCartBlockItemInfo.find(Condition.text(itemVolume))
-                .shouldBe(Condition.visible);
+    @Step("I check {productColor} is displayed correctly in cart block")
+    public ProductCardPage checkProductColorInfo(String productColor) {
+        elProductColorInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productColor));
         return this;
     }
 
-    @Step("I check {itemColor} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockColor(String itemColor) {
-        elsCartBlockItemInfo.find(Condition.text(itemColor))
-                .shouldBe(Condition.visible);
+    @Step("I check {productResidualSum} is displayed correctly in cart block")
+    public ProductCardPage checkProductResidualSumInfo(String productResidualSum) {
+        elProductResidualSumInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productResidualSum));
         return this;
     }
 
-    @Step("I check {totalCost} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockTotalCost(String totalCost) {
-        elsCartBlockItemInfo.find(Condition.text(totalCost))
-                .shouldBe(Condition.visible);
+    @Step("I check {productMonthTerm} is displayed correctly in cart block")
+    public ProductCardPage checkProductMonthTermInfo(String productMonthTerm) {
+        elProductMonthTermInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productMonthTerm));
         return this;
     }
 
-    @Step("I check {leasingSum} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockLeasingSum(String leasingSum) {
-        elsCartBlockItemInfo.find(Condition.text(leasingSum))
-                .shouldBe(Condition.visible);
+    @Step("I check {productDeliveryType} is displayed correctly in cart block")
+    public ProductCardPage checkProductDeliveryTypeInfo(String productDeliveryType) {
+        elProductDeliveryTypeInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productDeliveryType));
         return this;
     }
 
-    @Step("I check {residualSum} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockResidualSum(String residualSum) {
-        elsCartBlockItemInfo.find(Condition.text(residualSum))
-                .shouldBe(Condition.visible);
+    @Step("I check {productTotalAmount} is displayed correctly in cart block")
+    public ProductCardPage checkProductTotalAmountInfo(String productTotalAmount) {
+        elProductTotalAmountInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productTotalAmount));
         return this;
     }
 
-    @Step("I check {monthTerm} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockMonthTerm(String monthTerm) {
-        elsCartBlockItemInfo.find(Condition.text(monthTerm))
-                .shouldBe(Condition.visible);
-        return this;
-    }
-
-    @Step("I check {monthPay} is displayed correctly in cart block")
-    public ProductCardPage checkCartBlockMonthPay(String monthPay) {
-        elsCartBlockItemInfo.find(Condition.text(monthPay))
-                .shouldBe(Condition.visible);
+    @Step("I check {productAmountPay} is displayed correctly in cart block")
+    public ProductCardPage checkProductAmountPayInfo(String productAmountPay) {
+        elProductAmountPayInfo.shouldBe(Condition.visible)
+                .shouldHave(Condition.text(productAmountPay));
         return this;
     }
 

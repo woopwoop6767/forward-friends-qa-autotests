@@ -11,14 +11,14 @@ import static com.codeborne.selenide.Selenide.*;
 public class MainPageContracts {
 
 
-    private SelenideElement elMyContractsMenuButton = $x("//*[contains(@class,'menu-item')]//a[contains(text(),'Мои договоры')]");
+    private SelenideElement elMyContractsMenuButton = $x("//*[@data-test='contracts-link']");
     private SelenideElement elNumberOfApplicationsInfo = $x("//*[contains(text(),'Количество заявок')]/preceding-sibling::*[@class='act-title']");
     private SelenideElement elApplicationsToIssueInfo = $x("//*[contains(text(),'Ожидают выдачи')]/preceding-sibling::*[@class='act-title']");
     private SelenideElement elApplicationsIssuedInfo = $x("//*[contains(text(),'Выдано')]/preceding-sibling::*[@class='act-title']");
     private SelenideElement elSummaryBalanceInfo = $x("//*[contains(text(),'Баланс за все время')]//ancestor::*[@class='act-block']//*[@class='act-title rubles']");
     private SelenideElement elActiveBalanceInfo = $x("//*[contains(text(),'На счету')]//ancestor::*[contains(@class,'act-block')]//*[contains(@class,'act-title rubles')]");
     private SelenideElement elWithdrawButton = $x("//button[.//*[text()='Снять']]");
-    private ElementsCollection elsRowsInContractsTable = $$x("//*[@class='table-orders-body']//*[@fxlayout='row' and not (@fxlayoutalign)]");
+    private ElementsCollection elsRowsInContractsTable = $$x("//*[@data-test='order-row']");
     private SelenideElement elLoadMoreContractsButton = $x("//a[contains(text(),'Загрузить ещё')]");
     private SelenideElement elAppsLink = $x("//*[@class='header-menu']//a[@data-test='top-menu' and contains(text(),'Заявки')]");
 
@@ -37,7 +37,7 @@ public class MainPageContracts {
 
     @Step("I check active balance is not equal 0")
     public MainPageContracts checkActiveBalanceIsNotEqualZero() {
-        elActiveBalanceInfo.shouldNotHave(Condition.matchText("0 ₽"));
+        elActiveBalanceInfo.shouldNotHave(Condition.exactText("0 ₽"));
         return this;
     }
 

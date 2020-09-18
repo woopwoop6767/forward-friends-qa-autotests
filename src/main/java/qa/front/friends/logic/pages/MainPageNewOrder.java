@@ -14,9 +14,9 @@ public class MainPageNewOrder {
     private SelenideElement elOrdersButton = $x("//*[@data-test='top-menu' and text() = 'Заявки']");
     private SelenideElement elTariffsButton = $x("//*[@data-test='top-menu' and text() = 'Тарифы']");
     private SelenideElement elPodpishisRFButtonLink = $x("//*[@data-test='top-menu' and text() = 'Подпишись.рф']");
-    private SelenideElement elCabinetButton = $x("//a[@routerlink='/cabinet']");
-    private SelenideElement elNewOrderMenuItem = $x("//*[@class='order-menu']//*[text()='Новая заявка']");
-    private SelenideElement elContractsMenuItem = $x("//*[@class='order-menu']//*[text()='Мои договоры']");
+    private SelenideElement elCabinetButton = $x("//*[@data-test='cabinet-link']");
+    private SelenideElement elNewOrderMenuItem = $x("//*[@data-test='new-order-link']");
+    private SelenideElement elContractsMenuItem = $x("//*[@data-test='contracts-link']");
     private SelenideElement elSearchFieldInput = $x("//input[@data-test='search-field' and @placeholder='Поиск']");
     private ElementsCollection elsProductCardsArray = $$x("//*[@data-test='product-card' and @fxlayout='column']");
 
